@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>For Sherine 💌</title>
+<link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>💌</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Caveat:wght@600;700&family=Nunito:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg1:#ffe4ec;--bg2:#fff3e6;--card:#fffafb;--ink:#4a2433;--soft:#8a5568;
+  --pink:#ff6b9a;--pink2:#ff8fb3;--blue:#8fd3f4;--red:#e5484d;--line:#ffc2d6;
+  box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){--bg1:#2b1220;--bg2:#1d1020;--card:#3a1b2e;--ink:#ffe9f1;--soft:#e7b3c8;--line:#6b2f4a}
+}
+html{scroll-padding-top:env(safe-area-inset-top,0px);height:100%}
+*{box-sizing:border-box}
+body{margin:0;height:100%;font-family:Nunito,system-ui,sans-serif;color:var(--ink);
+  background:linear-gradient(160deg,var(--bg1),var(--bg2));overflow-x:hidden}
+#app{min-height:100%;display:flex;align-items:center;justify-content:center;padding:20px;position:relative;z-index:2}
+.card{width:100%;max-width:400px;background:var(--card);border:2px solid var(--line);border-radius:32px;
+  padding:34px 26px 28px;text-align:center;box-shadow:0 14px 0 -6px var(--line),0 24px 40px -18px rgba(255,107,154,.45);
+  animation:pop .5s cubic-bezier(.3,1.5,.5,1)}
+@keyframes pop{from{transform:scale(.88) rotate(-2deg);opacity:0}to{transform:none;opacity:1}}
+.emoji{font-size:64px;line-height:1;display:inline-block;animation:bob 2.4s ease-in-out infinite}
+@keyframes bob{50%{transform:translateY(-8px) rotate(4deg)}}
+h1{font-family:Caveat,cursive;font-size:46px;line-height:1.05;margin:14px 0 10px;color:var(--pink)}
+p{font-size:18px;line-height:1.55;margin:0 0 22px;color:var(--soft)}
+p b{color:var(--ink)}
+.btn{font:800 18px Nunito,sans-serif;border:0;border-radius:999px;padding:14px 28px;cursor:pointer;
+  background:var(--pink);color:#fff;box-shadow:0 6px 0 #d94b7b;transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translateY(5px);box-shadow:0 1px 0 #d94b7b}
+.btn:focus-visible{outline:3px solid var(--blue);outline-offset:3px}
+.btn.no{background:var(--card);color:var(--soft);box-shadow:0 5px 0 var(--line);border:2px solid var(--line)}
+.dots{display:flex;gap:7px;justify-content:center;margin-top:22px}
+.dots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--pink);transform:scale(1.25)}
+#row{display:flex;gap:14px;justify-content:center;align-items:center;flex-wrap:wrap;min-height:120px}
+#no{position:relative}
+.heart{position:fixed;top:-40px;z-index:1;pointer-events:none;animation:fall linear forwards}
+@keyframes fall{to{transform:translateY(115vh) rotate(40deg)}}
+.big{position:fixed;inset:0;z-index:3;pointer-events:none}
+@media (prefers-reduced-motion:reduce){.emoji,.card{animation:none}.heart{display:none}}
+</style>
+</head>
+<body>
+<div id="app"><div class="card" id="card"></div></div>
+<script>
+var NAME="Sherine";
+var steps=[
+ {e:"💌",h:"Hi "+NAME+"…",t:"I made something just for you. Can I have one minute of your time?",b:"Okay, I’m listening 🙈"},
+ {e:"☀️",h:"You make my days better",t:"Talking to you has become my favorite part of the day. Your good morning texts, your sense of humor, and the way you never make me feel silly for missing the slang 😅",b:"Aww, keep going"},
+ {e:"🛡️",h:"Your kind of love",t:"You told me love is <b>a choice, an action, and a safe space</b>. That is exactly what I believe too, and I’d love to build it with you.",b:"Continue 🥹"},
+ {e:"🍿",h:"Things I want to do with you",t:"Movie nights, a ludo match (I’ll try not to lose too badly), and sharing fries while we talk about everything. I just want more of us. 🍟",b:"Aww 😂"},
+ {e:"🌍",h:"Distance doesn’t scare me",t:"We both said it comes down to effort and how badly you want it. I want it, and I want it with you.",b:"One more…"}
+];
+var i=0,card=document.getElementById("card");
+
+function dots(){var s="";for(var k=0;k<=steps.length;k++)s+='<i class="'+(k===i?'on':'')+'"></i>';return '<div class="dots">'+s+'</div>';}
+function show(){
+  if(i<steps.length){var s=steps[i];
+    card.innerHTML='<div class="emoji">'+s.e+'</div><h1>'+s.h+'</h1><p>'+s.t+'</p><button class="btn" id="next">'+s.b+'</button>'+dots();
+    document.getElementById("next").onclick=function(){i++;show();};
+  } else ask();
+  card.style.animation="none";card.offsetWidth;card.style.animation="";
+}
+
+var noLines=["No","Are you sure? 🥺","Think again 😭","Pretty please?","My heart 💔","Fries on me 🍟","Don’t do this 😭","Last chance 🥹"];
+var tries=0;
+function ask(){
+  card.innerHTML='<div class="emoji">🌸</div><h1>'+NAME+', will you be my girlfriend?</h1>'+
+   '<p>I’ll show up, I’ll listen, and I’ll always try to make you smile. Say yes? 🥺</p>'+
+   '<div id="row"><button class="btn" id="yes">Yes 💖</button><button class="btn no" id="no">No</button></div>'+dots();
+  var yes=document.getElementById("yes"),no=document.getElementById("no");
+  function dodge(e){
+    if(e&&e.preventDefault)e.preventDefault();
+    tries++;no.textContent=noLines[Math.min(tries,noLines.length-1)];
+    var s=Math.min(1+tries*.22,2.6);yes.style.transform="scale("+s+")";yes.style.margin=(tries*6)+"px";
+    var dx=(Math.random()-.5)*160,dy=(Math.random()-.5)*110;
+    no.style.transform="translate("+dx+"px,"+dy+"px)";
+  }
+  no.addEventListener("pointerenter",dodge);no.addEventListener("click",dodge);
+  yes.onclick=celebrate;
+}
+
+function rain(n){
+  var set=["💖","💗","💕","🌸","🩷","✨","🍟"];
+  for(var k=0;k<n;k++){(function(k){setTimeout(function(){
+    var h=document.createElement("div");h.className="heart";h.textContent=set[Math.floor(Math.random()*set.length)];
+    h.style.left=Math.random()*100+"vw";h.style.fontSize=(18+Math.random()*26)+"px";
+    h.style.animationDuration=(3+Math.random()*3)+"s";document.body.appendChild(h);
+    setTimeout(function(){h.remove();},6500);},k*70);})(k);}
+}
+
+function celebrate(){
+  card.innerHTML='<div class="emoji">🥰</div><h1>She said yes!!</h1>'+
+   '<p>You just made me the happiest guy 🎉<br>Screenshot this and send it to me, my <b>girlfriend</b> 💖</p>'+
+   '<p style="font-size:15px;margin:0">— Harrison 🩵</p>';
+  rain(60);setInterval(function(){rain(10);},3000);
+}
+rain(14);show();
+</script>
+</body>
+</html>
